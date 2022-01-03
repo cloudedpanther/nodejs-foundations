@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-foundations",
+  "version": "1.0.0",
+  "description": "NodeJS Foundations Practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cloudedpanther/nodejs-foundations.git"
+  },
+  "author": "cloudedpanther",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cloudedpanther/nodejs-foundations/issues"
+  },
+  "homepage": "https://github.com/cloudedpanther/nodejs-foundations#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}

@@ -48,12 +48,31 @@ app.get("/list", function (req, res) {
 });
 
 app.post("/add", function (req, res) {
-  const newToDo = {
-    title: req.body.title,
-    date: req.body.date,
-  };
-  db.collection("post").insertOne(newToDo, function (err, el) {
-    console.log("🚀 SAVED!!!");
-  });
+  db.collection("count").findOne(
+    { name: "number of posts" },
+    function (err, e) {
+      if (err) console.log(err);
+      const index = e.totalPost + 1;
+      const newToDo = {
+        _id: index,
+        title: req.body.title,
+        date: req.body.date,
+      };
+
+      db.collection("post").insertOne(newToDo, function (err, e) {
+        if (err) console.log(err);
+        console.log("🚀 SAVED!!!");
+      });
+    }
+  );
+
+  db.collection("count").updateOne(
+    { name: "number of posts" },
+    { $inc: { totalPost: 1 } },
+    function (err, el) {
+      if (err) console.log(err);
+    }
+  );
+
   res.send("Saved");
 });

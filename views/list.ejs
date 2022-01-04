@@ -13,7 +13,7 @@
       crossorigin="anonymous"
     />
 
-    <title>Write ToDo | Home</title>
+    <title>Write ToDo | List</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -57,7 +57,10 @@
       </div>
     </nav>
 
-    <h1 class="mt-5">Home Page</h1>
+    <% for(let i = 0; i < toDos.length; i++) { %>
+    <h4>할 일: <%= toDos[i].title %></h4>
+    <p>기한: <%= toDos[i].date %></p>
+    <% } %>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

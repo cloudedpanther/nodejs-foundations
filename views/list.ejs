@@ -33,13 +33,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/write">Write</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">임시</a>
+              <a class="nav-link" href="/list">목록</a>
             </li>
           </ul>
           <form class="d-flex">
@@ -57,10 +57,68 @@
       </div>
     </nav>
 
-    <% for(let i = 0; i < toDos.length; i++) { %>
-    <h4>할 일: <%= toDos[i].title %></h4>
-    <p>기한: <%= toDos[i].date %></p>
-    <% } %>
+    <ul class="list-group">
+      <% for(let i = 0; i < toDos.length; i++) { %>
+      <li class="list-group-item" data-id="<%= toDos[i]._id %>">
+        <a href="/details/<%= toDos[i]._id %>">
+          <h4>할 일: <%= toDos[i].title %></h4>
+        </a>
+        <p>기한: <%= toDos[i].date %></p>
+        <button class="delete">삭제</button>
+      </li>
+      <% } %>
+    </ul>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <style>
+      a {
+        text-decoration: none;
+      }
+
+      .hi {
+        margin: 50px;
+        background-color: blueviolet;
+        color: white;
+        padding: 20px;
+        cursor: pointer;
+      }
+
+      .fadeOut {
+        opacity: 0;
+        transition: all 1s;
+      }
+
+      .byeBye {
+        display: none;
+      }
+    </style>
+
+    <script>
+      $(".delete").click(function (e) {
+        const btn = e.target;
+        const li = btn.parentNode;
+        $.ajax({
+          url: "/delete",
+          method: "DELETE",
+          data: { _id: li.dataset.id },
+        }).done(() => {
+          hideOne(li);
+        });
+      });
+
+      function hideOne(target) {
+        target.classList.add("fadeOut");
+        setTimeout(function () {
+          target.classList.remove("fadeOut");
+          target.classList.add("byeBye");
+        }, 500);
+      }
+    </script>
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

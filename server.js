@@ -76,3 +76,18 @@ app.post("/add", function (req, res) {
 
   res.send("Saved");
 });
+
+app.delete("/delete", function (req, res) {
+  const id = parseInt(req.body._id);
+  db.collection("post").deleteOne({ _id: id }, function (err, el) {
+    res.status(200).send("Successfully deleted.");
+  });
+});
+
+app.get("/details/:id", function (req, res) {
+  const id = parseInt(req.params.id);
+  db.collection("post").findOne({ _id: id }, function (err, el) {
+    if (err || el === null) res.send("404");
+    else res.render("details.ejs", { data: el });
+  });
+});

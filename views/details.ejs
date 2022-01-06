@@ -13,13 +13,13 @@
       crossorigin="anonymous"
     />
 
-    <title>Write ToDo | List</title>
+    <title>Write ToDo | Details</title>
   </head>
   <body>
     <%- include('./partials/nav.ejs') %>
 
-    <div class="container">
-      <h4>상세 페이지</h4>
+    <div class="container mt-5">
+      <h4 class="mb-4">상세 페이지</h4>
       <div class="card" style="width: 18rem">
         <div class="card-body">
           <h5 class="card-title">이름: <%= data.title %></h5>
@@ -28,7 +28,7 @@
             Some quick example text to build on the card title and make up the
             bulk of the card's content.
           </p>
-          <a href="#" class="card-link">수정하기</a>
+          <a href="/edit/<%= data._id %>" class="card-link">수정하기</a>
         </div>
       </div>
     </div>

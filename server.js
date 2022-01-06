@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 
 const app = express();
 const PORT = 4000;
@@ -28,6 +29,8 @@ MongoClient.connect(
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/public", express.static("public"));
+
+app.use(methodOverride("_method"));
 
 app.get("/", function (req, res) {
   res.render("index.ejs");
@@ -92,4 +95,30 @@ app.get("/details/:id", function (req, res) {
     if (err || el === null) res.send("404");
     else res.render("details.ejs", { data: el });
   });
+});
+
+app.get("/edit/:id", function (req, res) {
+  const id = parseInt(req.params.id);
+  db.collection("post").findOne({ _id: id }, function (err, el) {
+    if (err || el === null) res.send("404");
+    else res.render("edit.ejs", { data: el });
+  });
+});
+
+app.put("/edit", function (req, res) {
+  const id = parseInt(req.body.id);
+  db.collection("post").updateOne(
+    { _id: id },
+    {
+      $set: {
+        title: req.body.title,
+        date: req.body.date,
+      },
+    },
+    function (err, el) {
+      console.log(el);
+      if (err) res.send("404");
+      else res.redirect("/list");
+    }
+  );
 });

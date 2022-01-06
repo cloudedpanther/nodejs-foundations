@@ -16,58 +16,22 @@
     <title>Write ToDo | List</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">Things To Do</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/write">Write</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/list">목록</a>
-            </li>
-          </ul>
-          <form class="d-flex">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
+    <%- include('./partials/nav.ejs') %>
 
-    <ul class="list-group">
-      <% for(let i = 0; i < toDos.length; i++) { %>
-      <li class="list-group-item" data-id="<%= toDos[i]._id %>">
-        <a href="/details/<%= toDos[i]._id %>">
-          <h4>할 일: <%= toDos[i].title %></h4>
-        </a>
-        <p>기한: <%= toDos[i].date %></p>
-        <button class="delete">삭제</button>
-      </li>
-      <% } %>
-    </ul>
+    <div class="container mt-5">
+      <h4 class="mb-4 text-center dd">할 일 목록</h4>
+      <ul class="list-group">
+        <% for(let i = 0; i < toDos.length; i++) { %>
+        <li class="list-group-item" data-id="<%= toDos[i]._id %>">
+          <a href="/details/<%= toDos[i]._id %>">
+            <h4>할 일 제목: <%= toDos[i].title %></h4>
+          </a>
+          <p>할 일 마감날짜: <%= toDos[i].date %></p>
+          <button type="button" class="btn btn-danger">삭제</button>
+        </li>
+        <% } %>
+      </ul>
+    </div>
 
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"

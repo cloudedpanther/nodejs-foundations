@@ -27,12 +27,14 @@ MongoClient.connect(
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use("/public", express.static("public"));
+
 app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/index.html");
+  res.render("index.ejs");
 });
 
 app.get("/write", function (req, res) {
-  res.sendFile(__dirname + "/write.html");
+  res.render("write.ejs");
 });
 
 app.get("/pretty", function (req, res) {

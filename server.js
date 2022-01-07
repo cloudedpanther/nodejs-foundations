@@ -88,7 +88,7 @@ app.post("/add", function (req, res) {
     }
   );
 
-  res.send("Saved");
+  res.redirect("/");
 });
 
 app.delete("/delete", function (req, res) {
@@ -130,6 +130,26 @@ app.put("/edit", function (req, res) {
       else res.redirect("/list");
     }
   );
+});
+
+app.get("/search", (req, res) => {
+  const value = req.query.value;
+  const searchKey = [
+    {
+      $search: {
+        index: "titleSearch",
+        text: {
+          query: value,
+          path: "title",
+        },
+      },
+    },
+  ];
+  db.collection("post")
+    .aggregate(searchKey)
+    .toArray((err, el) => {
+      res.render("search.ejs", { toDos: el });
+    });
 });
 
 app.get("/login", function (req, res) {
